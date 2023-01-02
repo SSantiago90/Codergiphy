@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import GifImg from "./GifImg";
+import React, { useState } from "react";
 
-function App() {
+export default function App() {
+  const [dataGifs, setDataGifs] = useState([]);
+
+  const APIKEY = "EKhf4RvvCY28KgzIN1lnGlSNkOMO27dH";
+
+  const url = `http://api.giphy.com/v1/gifs/search?q=simpsons&api_key=EKhf4RvvCY28KgzIN1lnGlSNkOMO27dH`;
+
+  function fetchGifs() {
+    console.log("fetch...");
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>CODERGIFS</h1>
+      <button onClick={fetchGifs}>Get gif</button>
     </div>
   );
 }
-
-export default App;
