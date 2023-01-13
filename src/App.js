@@ -10,20 +10,26 @@ import {
 
 function SearchGifs() {
   const [dataGifs, setDataGifs] = useState([]);
-  // /search/pokemon
-  // { keyword: "pokemon"}
 
-  let { keyword } = useParams();
+  let params = useParams();
 
   const APIKEY = "EKhf4RvvCY28KgzIN1lnGlSNkOMO27dH";
 
-  useEffect(() => {
-    const url = `http://api.giphy.com/v1/gifs/search?q=${keyword}&api_key=${APIKEY}&limit=10`;
+  const asyncFetch = async () => {
+    const url = `http://api.giphy.com/v1/gifs/search?q=${params.keyword}&api_key=${APIKEY}&limit=10`;
 
-    fetch(url)
-      .then((respuesta) => respuesta.json())
-      .then((json) => setDataGifs(json.data));
-  }, [keyword]);
+    try {
+      const respuesta = await fetch(url);
+      const json = await respuesta.json();
+      setDataGifs(json.data);
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  useEffect(() => {
+    asyncFetch();
+  }, [params.keyword]);
 
   return (
     <div
@@ -53,7 +59,8 @@ export default function App() {
         <h1>CODERGIFS</h1>
         <nav>
           <Link to="/search/pokemon">Pokemon</Link>
-          <Link to="/search/dogs">Perros</Link>
+          <Link to="/search/cats">Gatos</Link>
+          <Link to="/search/javascript">Javascript</Link>
         </nav>
         <Routes>
           <Route path="/" element={<h1>todo</h1>}></Route>
